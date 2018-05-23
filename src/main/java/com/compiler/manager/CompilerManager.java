@@ -2,6 +2,11 @@ package com.compiler.manager;
 
 
 import com.compiler.bean.CompilerResponse;
+import com.google.common.base.Charsets;
+import com.google.common.io.CharStreams;
+import org.apache.el.parser.SimpleCharStream;
+import org.apache.tomcat.util.bcel.classfile.ConstantUtf8;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.bean.detail.EstructuraDetalle;
 import org.bean.header.EstructuraArchivoEncabezado;
 import org.bean.header.EstructuraEncabezado;
@@ -16,6 +21,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.StringWriter;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,6 +37,17 @@ public class CompilerManager {
         response.setLexiconSuccess(false);
         response.setSemanticSuccess(false);
         try {
+
+            if(file.getSize() <= 0){
+                throw new RuntimeException("El archivo esta vacio.");
+            }
+
+            String result = CharStreams.toString(new InputStreamReader(
+                    file.getInputStream(), Charsets.UTF_8));
+            if(!result.startsWith("</ INICIO >")){
+                throw new RuntimeException("El archivo no es valido.");
+            }
+
             TablaSimbolosEncabezado tablaSimbolos = new TablaSimbolosEncabezado();
             ArrayList<EstructuraEncabezado> TabSimEnc1 = tablaSimbolos.RetornaTablaSimbEnc1();
             if (!TabSimEnc1.isEmpty()) {

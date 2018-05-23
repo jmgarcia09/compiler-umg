@@ -31,7 +31,7 @@ public class CompilerController {
 
     @ExceptionHandler({Exception.class})
     public ResponseEntity captureException(Exception e){
-        return ResponseEntity.badRequest().body("Cannot compile file due to " + e.getMessage());
+        return ResponseEntity.badRequest().body("No es posible validar documento debido a: " + e.getMessage());
     }
 
 }
