@@ -1,0 +1,12 @@
+1;</ FIN DETALLE />;;;
+2;</ TOTALES **********************************************************>;;;
+3;EFECTIVO;:;Double;
+4;TARJETA DE CREDITO;:;Double;
+5;Otras;:;String;
+6;Total Descuentos;:;Double;
+7;Total sin impuestos;:;Double;
+8;Total Impuestos;:;Double;
+9;Valor Pagar;:;Double;
+10;Moneda;:;String;
+11;Total en letras;:;String;
+12;</ IMPUESTOS ********************************************************>;;;
